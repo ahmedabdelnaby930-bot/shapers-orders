@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shapers – لوحة الطلبات</title>
+<style>
+:root{--bg:#f6f5f3;--card:#fff;--tx:#1d1d1f;--mu:#6b6b70;--bd:#e4e2de;--ac:#b4456b;--ok:#2e8b57;--bad:#c0392b;--wa:#d98a00;--bl:#2f6fb0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17161a;--card:#222126;--tx:#f0eef2;--mu:#9a98a0;--bd:#34323a;--ac:#e0709a;--ok:#4cc38a;--bad:#ff7a6b;--wa:#f0b040;--bl:#6aa8e8;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17161a;--card:#222126;--tx:#f0eef2;--mu:#9a98a0;--bd:#34323a;--ac:#e0709a;--ok:#4cc38a;--bad:#ff7a6b;--wa:#f0b040;--bl:#6aa8e8;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Tahoma,Arial,sans-serif;font-size:14px}
+.w{max-width:1200px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:0 0 2px}.sub{color:var(--mu);font-size:12px;margin-bottom:6px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+button,select,input{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 10px}
+button{cursor:pointer}
+button:hover{border-color:var(--ac)}
+.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px}
+.k .c b{display:block;font-size:20px;margin-top:4px}.k .c span{color:var(--mu);font-size:12px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:14px}
+.g h3{font-size:13px;margin:0 0 8px;color:var(--mu)}
+.r{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:12px;cursor:pointer}
+.r i{flex:0 0 90px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:normal}
+.r div{flex:1;background:var(--bd);border-radius:4px;height:10px}.r div u{display:block;height:100%;background:var(--ac);border-radius:4px}
+.r em{flex:0 0 34px;text-align:left;font-style:normal;color:var(--mu)}
+.f{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}.f input{flex:1;min-width:180px}
+.t{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:12px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:1700px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--bd);white-space:nowrap}
+th{font-size:12px;color:var(--mu);cursor:pointer;position:sticky;top:0;background:var(--card);user-select:none}
+tbody tr{cursor:pointer}tbody tr:hover{background:var(--bg)}
+.sp,th:empty{min-width:28px;width:28px;padding:0;background:#89cff0}.cm{white-space:pre-wrap;min-width:230px;max-width:300px;font-size:12px;vertical-align:top}.b{padding:2px 8px;border-radius:10px;font-size:11px;background:var(--bd)}
+.b.ok{background:rgba(46,139,87,.18);color:var(--ok)}.b.bad{background:rgba(192,57,43,.18);color:var(--bad)}
+.b.wa{background:rgba(217,138,0,.2);color:var(--wa)}.b.bl{background:rgba(47,111,176,.18);color:var(--bl)}
+.pg{display:flex;justify-content:space-between;align-items:center;margin-top:10px;color:var(--mu);font-size:12px}
+#m,#cfg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:12px;z-index:20}
+#m .c,#cfg .c{max-width:620px;width:100%;max-height:88vh;overflow:auto}
+.dl{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;font-size:13px}.dl dt{color:var(--mu)}.dl dd{white-space:pre-wrap;margin:0;word-break:break-word}
+.cfg-box{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.cfg-box input{width:100%;direction:ltr;text-align:left}
+.badge-live{display:inline-flex;align-items:center;gap:6px;font-weight:500}
+</style></head><body><div class="w">
+<div class="top">
+  <div>
+    <h1>Shapers – لوحة الطلبات</h1>
+    <div class="sub" id="sub"></div>
+    <div class="sub badge-live" id="live"></div>
+  </div>
+  <span>
+    <button id="btnCfg" title="إعدادات الربط بالشيت">⚙️ الربط</button>
+    <button id="rf" title="تحديث الآن">🔄 تحديث</button>
+    <button id="th" title="تغيير المظهر">🌓</button>
+  </span>
+</div>
+<div class="k" id="k"></div>
+<div class="g" id="g"></div>
+<div class="f"><input id="q" placeholder="بحث: اسم، تليفون، رقم أوردر، منطقة…"><select id="fst"></select><select id="fsp"></select><select id="fpl"></select><button id="rs">مسح الفلاتر</button></div>
+<div class="t"><table><thead><tr id="hd"></tr></thead><tbody id="tb"></tbody></table></div>
+<div class="pg"><span id="cnt"></span><span><button id="pv">السابق</button> <span id="pn"></span> <button id="nx">التالي</button></span></div>
+</div>
+
+<!-- نافذة تفاصيل الأوردر -->
+<div id="m"><div class="c" id="mc"></div></div>
+
+<!-- نافذة إعدادات الربط -->
+<div id="cfg"><div class="c">
+  <div class="top"><h3 style="margin:0">⚙️ إعدادات الربط اللحظي</h3><button id="xCfg">✕</button></div>
+  <p style="font-size:13px;color:var(--mu);line-height:1.6">
+    الربط الأساسي مفعل تلقائيًا عبر <b>Supabase</b>.<br>
+    في حال الرغبة في استخدام رابط <b>Google Apps Script</b> بديل، أدخله بالأسفل:
+  </p>
+  <div class="cfg-box">
+    <input id="apiUrl" placeholder="https://script.google.com/macros/s/.../exec">
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button id="saveUrl" style="background:var(--ac);color:#fff;border:none">حفظ وتحديث الآن</button>
+    </div>
+  </div>
+</div></div>
+
+<script>
+// حماية التخزين المحلي لمنع انهيار السكربت في متصفحات الموبايل التي تحظر localStorage للملفات المحلية
+const memStore = {};
+const store = {
+  get(k) {
+    try { return window.localStorage.getItem(k); } catch(e) { return memStore[k] || null; }
+  },
+  set(k, v) {
+    memStore[k] = v;
+    try { window.localStorage.setItem(k, v); } catch(e) {}
+  }
+};
+
+let D = [];
+try {
+  D = JSON.parse(store.get('shapers_cache_data') || '[]');
+} catch(e) { D = []; }
+
+if(!Array.isArray(D) || !D.length){
+  D = [{"d":"2026-11-01","os":"الغاء","fu":"الغاء","fs":"الغاء","no":"SH26-11-1","cl":"مدام نجلاء","ph":"01012441183","ar":"الزيتون","ad":"٢٣ شارع دار السعادة الدور التاسع شقة٢٧","m":[9104],"pcs":1,"pb":2800,"pa":1950,"sh":80,"tot":2030,"pay":"Cash","sp":"Shahd","pl":"Instagram","cs":"بعد التأكيد وقبل الشحن","cr":"مش محتاجة","co":"Sales","ag":"Monira","cur":"الغاء","s1":"[11-01] هتلغي الاوردر عشان لسا مش محتاجاه دلوقتي - إلغاء"}];
+}
+
+const $=s=>document.getElementById(s),fmt=n=>(n||0).toLocaleString('en-US');
+const st=o=>o.fs||o.cur||o.os||'غير محدد';
+const cls=s=>s==='Done'||s==='مباع'?'ok':/الغاء|مرتجع|رفض/.test(s)?'bad':/Delivery|Track|Magex/.test(s)?'bl':'wa';
+const F={q:'',st:'',sp:'',pl:''};let sortK='d',asc=false,pg=0,PS=25;
+
+const uniq=k=>[...new Set(D.map(o=>k==='_s'?o._s:o[k]).filter(Boolean))].sort();
+function sel(id,k,lab){$(id).innerHTML=`<option value="">${lab}</option>`+uniq(k).map(x=>`<option>${x}</option>`).join('');}
+
+const cols=[['d','التاريخ'],['no','رقم الأوردر'],['cl','العميل'],['ar','المنطقة'],['sp','السيلز'],['pl','المنصة'],['_s','الحالة'],['tot','الإجمالي'],['net','الصافي'],['s1','تعليق السيلز 1'],['_sp',''],['s2','تعليق السيلز 2'],['_sp',''],['c1','CS محاولة 1'],['_sp',''],['c2','CS محاولة 2'],['_sp',''],['c3','CS محاولة 3']];
+$('hd').innerHTML=cols.map(c=>`<th data-k="${c[0]}">${c[1]}</th>`).join('');
+
+const flt=()=>D.filter(o=>(!F.st||o._s===F.st)&&(!F.sp||o.sp===F.sp)&&(!F.pl||o.pl===F.pl)&&(!F.q||[o.cl,o.ph,o.no,o.ar,o.ad].join(' ').toLowerCase().includes(F.q)));
+function bars(t,arr,key){const mx=Math.max(...arr.map(a=>a[1]),1);return `<div class="c"><h3>${t}</h3>${arr.map(a=>`<div class="r" data-f="${key}" data-v="${a[0]}"><i>${a[0]}</i><div><u style="width:${a[1]/mx*100}%"></u></div><em>${a[1]}</em></div>`).join('')}</div>`}
+const cnt=(L,f)=>Object.entries(L.reduce((m,o)=>{const x=f(o);if(x)m[x]=(m[x]||0)+1;return m},{})).sort((a,b)=>b[1]-a[1]);
+
+function render(){
+ D.forEach(o=>o._s=st(o));
+ const L=flt();
+ const done=L.filter(o=>o._s==='Done'||o._s==='مباع'),can=L.filter(o=>/الغاء/.test(o._s)),dl=L.filter(o=>o._s==='Within Delivery');
+ const rev=done.reduce((s,o)=>s+(o.tot||0),0),net=L.reduce((s,o)=>s+(o.net||0),0);
+ const dates=D.map(o=>o.d).filter(Boolean).sort();
+ $('sub').textContent=`${fmt(D.length)} أوردر` + (dates.length ? ` • من ${dates[0]} إلى ${dates[dates.length-1]}` : '');
+ const K=[['عدد الأوردرات',L.length],['تم التسليم',done.length],['ملغي',can.length],['في الشحن',dl.length],['نسبة الإلغاء',(L.length?can.length/L.length*100:0).toFixed(1)+'%'],['مبيعات مكتملة',fmt(rev)+' ج'],['الصافي المحصّل',fmt(net)+' ج']];
+ $('k').innerHTML=K.map(a=>`<div class="c"><span>${a[0]}</span><b>${a[1]}</b></div>`).join('');
+ $('g').innerHTML=bars('حسب الحالة',cnt(L,o=>o._s).slice(0,8),'st')+bars('حسب السيلز',cnt(L,o=>o.sp),'sp')+bars('حسب المنصة',cnt(L,o=>o.pl),'pl')+bars('أعلى المناطق',cnt(L,o=>o.ar).slice(0,8),'q');
+ 
+ L.sort((a,b)=>{
+   let x=a[sortK],y=b[sortK];
+   if(typeof x==='number'||typeof y==='number'){x=x??-Infinity;y=y??-Infinity;return (x-y)*(asc?1:-1)}
+   x=String(x??'');y=String(y??'');
+   return x.localeCompare(y,'ar')*(asc?1:-1);
+ });
+ 
+ const pages=Math.max(1,Math.ceil(L.length/PS));if(pg>=pages)pg=pages-1;
+ $('tb').innerHTML=L.slice(pg*PS,pg*PS+PS).map(o=>`<tr data-n="${o.no}"><td>${o.d||''}</td><td>${o.no}</td><td>${o.cl||''}</td><td>${o.ar||''}</td><td>${o.sp||''}</td><td>${o.pl||''}</td><td><span class="b ${cls(o._s)}">${o._s}</span></td><td>${fmt(o.tot)}</td><td>${o.net==null?'':fmt(o.net)}</td>${['s1','_sp','s2','_sp','c1','_sp','c2','_sp','c3'].map(k=>`<td class="${k==='_sp'?'sp':'cm'}">${String(o[k]||'').replace(/</g,'&lt;')}</td>`).join('')}</tr>`).join('');
+ $('cnt').textContent=`${L.length} نتيجة`;$('pn').textContent=`${pg+1} / ${pages}`;
+}
+
+$('hd').onclick=e=>{const k=e.target.dataset.k;if(!k||k==='_sp')return;asc=sortK===k?!asc:true;sortK=k;render()};
+$('q').oninput=e=>{F.q=e.target.value.trim().toLowerCase();pg=0;render()};
+[['fst','st'],['fsp','sp'],['fpl','pl']].forEach(([i,k])=>$(i).onchange=e=>{F[k]=e.target.value;pg=0;render()});
+$('rs').onclick=()=>{F.q=F.st=F.sp=F.pl='';['q','fst','fsp','fpl'].forEach(i=>$(i).value='');pg=0;render()};
+$('pv').onclick=()=>{pg=Math.max(0,pg-1);render()};$('nx').onclick=()=>{pg++;render()};
+$('g').onclick=e=>{const r=e.target.closest('.r');if(!r)return;const k=r.dataset.f,v=r.dataset.v;if(k==='q'){F.q=v.toLowerCase();$('q').value=v}else{F[k]=v;$({st:'fst',sp:'fsp',pl:'fpl'}[k]).value=v}pg=0;render()};
+$('tb').onclick=e=>{const tr=e.target.closest('tr');if(!tr)return;const o=D.find(x=>x.no===tr.dataset.n);if(!o)return;
+ const rows=[['رقم الأوردر',o.no],['التاريخ',o.d],['العميل',o.cl],['التليفون',o.ph],['المنطقة',o.ar],['العنوان',o.ad],['الموديلات',(o.m||[]).join(' ، ')],['عدد القطع',o.pcs],['السعر قبل الخصم',o.pb],['السعر بعد الخصم',o.pa],['الشحن',o.sh],['الإجمالي',o.tot],['الدفع',o.pay],['السيلز',o.sp],['المنصة',o.pl],['CS',o.ag],['الحالة',o._s],['متابعة',o.fu],['طلب خاص',o.sr],['مرحلة الإلغاء',o.cs],['سبب الإلغاء',o.cr],['مسؤول الإلغاء',o.co],['المحصّل (قطع)',o.col],['تكلفة الشحن',o.cost],['الصافي',o.net],['تعليق السيلز 1',o.s1],['تعليق السيلز 2',o.s2],['CS محاولة 1',o.c1],['CS محاولة 2',o.c2],['CS محاولة 3',o.c3]].filter(r=>r[1]!==undefined&&r[1]!=='');
+ const sh=(o.sh_||[]).map((s,i)=>`<dt>شحنة ${i+1}</dt><dd>${s.filter(Boolean).join(' • ')}</dd>`).join('');
+ $('mc').innerHTML=`<div class="top"><h3 style="margin:0">${o.cl}</h3><button id="x">✕</button></div><dl class="dl">${rows.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}${sh}</dl>`;
+ $('m').style.display='flex';$('x').onclick=()=>$('m').style.display='none'};
+$('m').onclick=e=>{if(e.target.id==='m')$('m').style.display='none'};
+$('th').onclick=()=>{const r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark'};
+
+// --- منطق تحليل البيانات ---
+const num=s=>{if(s==null||s==='')return;const n=Number(String(s).replace(/,/g,''));return isNaN(n)?undefined:n};
+const dt=s=>{
+  if(!s)return undefined;
+  const str=String(s).trim();
+  const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(str);
+  if(m)return `${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;
+  if(str.includes('T')&&!isNaN(Date.parse(str))){
+    const d=new Date(str);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+  return str;
+};
+
+function parse(V){
+ const hi=V.findIndex(r=>Array.isArray(r)&&r.some(c=>String(c||'').trim()==='Order No.'));
+ if(hi>0)V=V.slice(hi);
+ const H=(V[0]||[]).map(h=>String(h||'').trim());
+ const ix=n=>H.reduce((a,h,i)=>(h===n&&a.push(i),a),[]),f=n=>ix(n)[0],l=n=>{const a=ix(n);return a[a.length-1]};
+ const sc=ix('Shipping Company'),sn=ix('Shipment No.'),su=ix('Shipment Update'),sm=ix('Sales Comment'),cm=ix('Comment');
+ const mi=['Model 1','Model 2','Model 3','Model 4','Model 5'].map(f);
+ const out=[];
+ for(const r of V.slice(1)){
+  const g=i=>{const x=i==null?'':r[i];return x==null||String(x).trim()===''?undefined:String(x).trim()};
+  if(!g(f('Client Name'))||!g(f('Order No.')))continue;
+  const cmt=(i,di)=>{const t=g(i);if(!t)return;const d=g(di);return (d?`[${d}] `:'')+t};
+  const nz=v=>v===0?undefined:v;
+  const o={
+   d:dt(g(f('Date'))),
+   os:g(f('Order Status')),
+   fu:g(f('Status Follow-Up')),
+   fs:g(f('Final Order Status')),
+   no:g(f('Order No.')),
+   cl:g(f('Client Name')),
+   ph:g(f('Phone No.')),
+   ar:g(f('Area')),
+   ad:g(f('Detailed Location')),
+   m:mi.map(g).filter(Boolean),
+   pcs:num(g(f('No. Of PCS')))||num(g(f('No. of PCS')))||0,
+   pb:nz(num(g(f('Price Before DISC.')))),
+   pa:nz(num(g(f('Price After DISC.')))),
+   sh:nz(num(g(f('Shipping Fees')))),
+   tot:num(g(f('Total Order Price')))||0,
+   pay:g(f('Payment')),
+   sp:g(f('Sales Person')),
+   pl:g(f('Platform')),
+   cs:g(f('Cancellation Stage')),
+   cr:g(f('Cancellation Reason')),
+   co:g(f('Cancellation Owner')),
+   ag:g(f('CS Agent')),
+   cur:g(f('Current Order Status')),
+   sr:g(f('Special Request')),
+   col:nz(num(g(l('Total Piece Price')))),
+   cship:nz(num(g(l('Total Shipping')))),
+   cost:nz(num(g(l('Total Shipping Cost')))),
+   net:nz(num(g(l('الصافي')))),
+   sh_:sc.map((c,k)=>[g(c),g(sn[k]),g(su[k])]).filter(s=>s[0]),
+   s1:cmt(sm[0],sm[0]-1),
+   s2:cmt(sm[1],sm[1]-1),
+   c1:cmt(cm[0],cm[0]-2),
+   c2:cmt(cm[1],cm[1]-2),
+   c3:cmt(cm[2],cm[2]-2)
+  };
+  Object.keys(o).forEach(k=>{if(o[k]===undefined||(Array.isArray(o[k])&&!o[k].length))delete o[k]});
+  out.push(o);
+ }
+ return out;
+}
+
+function setData(rows){
+ D=rows;
+ D.forEach(o=>o._s=st(o));
+ store.set('shapers_cache_data', JSON.stringify(D));
+ sel('fst','_s','كل الحالات');sel('fsp','sp','كل السيلز');sel('fpl','pl','كل المنصات');
+ [['fst','st'],['fsp','sp'],['fpl','pl']].forEach(([i,k])=>{$(i).value=F[k];if($(i).value!==F[k])F[k]=''});
+ render();
+}
+
+const setLive=(t,c)=>{$('live').textContent=t;$('live').style.color=c||'var(--mu)'};
+const hhmm=ms=>new Date(ms).toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
+// ===== إعدادات Supabase =====
+const SUPABASE_URL = "https://lqrfvhivwcmufngrqcga.supabase.co";
+const SUPABASE_KEY = "sb_publishable_im4kI06BGwX909kUfIMwjw_bk2OpdIA";
+const USE_SB = !!(SUPABASE_URL && SUPABASE_KEY);
+
+async function getSupabaseValues(){
+  const out=[];const step=1000;
+  for(let from=0;;from+=step){
+    const url = `${SUPABASE_URL}/rest/v1/sheet_rows?select=row&order=row_num.asc&apikey=${encodeURIComponent(SUPABASE_KEY)}`;
+    const res = await fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Range-Unit': 'items',
+        'Range': `${from}-${from+step-1}`
+      }
+    });
+    if(!res.ok) throw new Error('Supabase HTTP ' + res.status);
+    const part = await res.json();
+    out.push(...part.map(r=>r.row));
+    if(part.length < step) break;
+  }
+  return out;
+}
+
+const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbQTh_R2-c6UoGTBDbvT24q1g8rlI5z2XjmYDINQnNrLr3W6opW6dg7rLOxV2LQysS/exec"; 
+let scriptUrl = store.get('shapers_script_url') || DEFAULT_SCRIPT_URL;
+
+async function fetchSheet(){
+  if(!scriptUrl && !USE_SB){
+    setLive('⚠️ غير مربوط — اضغط على "⚙️ الربط" بالأعلى', 'var(--wa)');
+    return;
+  }
+  setLive('⏳ جاري سحب أحدث البيانات...', 'var(--bl)');
+  try {
+    let values;
+    if(USE_SB){
+      values = await getSupabaseValues();
+    } else {
+      const res = await fetch(scriptUrl);
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const json = await res.json();
+      if(json.error) throw new Error(json.error);
+      values = json.values;
+    }
+    const rows = Array.isArray(values) ? parse(values) : [];
+    if(!rows.length){
+      setLive('⚠️ البيانات فارغة — تأكد من جدول sheet_rows', 'var(--wa)');
+      return;
+    }
+    setData(rows);
+    setLive((USE_SB?'🟢 متصل بـ Supabase • آخر تحديث: ':'🟢 متصل بـ Google Sheets • آخر تحديث: ') + hhmm(Date.now()), 'var(--ok)');
+  } catch(err) {
+    console.error(err);
+    const isLocal = location.protocol === 'file:' || location.protocol === 'content:';
+    const hint = isLocal ? ' (افتح الرابط أونلاين أو في Chrome/Samsung Internet وليس داخل واتساب)' : '';
+    setLive('⚠️ تعذر الاتصال: ' + err.message + hint, 'var(--bad)');
+  }
+}
+
+$('btnCfg').onclick=()=>{ $('apiUrl').value=scriptUrl; $('cfg').style.display='flex'; };
+$('xCfg').onclick=()=>{ $('cfg').style.display='none'; };
+$('cfg').onclick=e=>{ if(e.target.id==='cfg') $('cfg').style.display='none'; };
+$('saveUrl').onclick=()=>{
+  const val=$('apiUrl').value.trim();
+  if(val && !val.startsWith('https://script.google.com/')){
+    alert('برجاء إدخال رابط Google Apps Script صحيح يبدأ بـ https://script.google.com/');
+    return;
+  }
+  scriptUrl=val;
+  store.set('shapers_script_url', scriptUrl);
+  $('cfg').style.display='none';
+  fetchSheet();
+};
+
+$('rf').onclick=()=>fetchSheet();
+
+D.forEach(o=>o._s=st(o));
+sel('fst','_s','كل الحالات');sel('fsp','sp','كل السيلز');sel('fpl','pl','كل المنصات');
+render();
+fetchSheet();
+setInterval(fetchSheet, 30000);
+</script></body></html>
